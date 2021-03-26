@@ -11,7 +11,7 @@ public class Main {
      */
     public static void main(String[] args) {
 //Exercici 1
-        Pila pila1 = new Pila<Integer>();
+       /* Pila pila1 = new Pila<Integer>();
         System.out.println(pila1.empty());
         pila1.push(1);
         pila1.push(2);
@@ -29,7 +29,7 @@ public class Main {
         cua1.get();
         System.out.println(cua1.get());
         System.out.println(cua1.empty());
-          System.out.println("\n");
+        System.out.println("\n");
 //Exercici 3         
         Impressora impr = new Impressora();
         System.out.println(impr.empty());
@@ -40,12 +40,36 @@ public class Main {
         System.out.println(impr.empty());
         System.out.println(impr.impimirDocument());
         System.out.println(impr.impimirDocument());
-        System.out.println(impr.empty());
+        System.out.println(impr.empty());*/
 //Exercici 4
-
-
-    
-    
+        Peatge p = new Peatge();
+        Cotxe c1 = new Cotxe("mat1");
+        Cotxe c2 = new Cotxe("mat2");
+        Cotxe c3 = new Cotxe("mat3");
+        Cotxe c4 = new Cotxe("mat4");
+        Cotxe c5 = new Cotxe("mat5");
+        Cotxe c6 = new Cotxe("mat6");
+        Cotxe c7 = new Cotxe("mat7");
+        Cotxe c8 = new Cotxe("mat8");
+        Cotxe c9 = new Cotxe("mat9");
+        Cotxe c10 = new Cotxe("mat10");
+        p.entraCotxe(c1);
+        p.entraCotxe(c2);
+        p.entraCotxe(c3);
+        p.entraCotxe(c4);
+        p.entraCotxe(c5);
+        p.entraCotxe(c6);
+        p.entraCotxe(c7);
+        p.surtCotxe();
+        p.surtCotxe();
+        p.entraCotxe(c8);
+        p.entraCotxe(c9);
+        p.surtCotxe();
+        p.entraCotxe(c10);
+        while (!p.comprovarEmptyPeatge()) {
+            p.surtCotxe();
+        }
+        p.surtCotxe();
     }
 
 }
