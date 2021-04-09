@@ -50,14 +50,11 @@ public class Alumne implements Comparable<Alumne> {
     public String toString() {
         return "Alumne{" + "dni=" + dni + ", nom=" + nom + ", nota=" + nota + '}';
     }
-    
-    
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 17 * hash + Objects.hashCode(this.dni);
-        hash = 17 * hash + Objects.hashCode(this.nom);
+        hash = 43 * hash + Objects.hashCode(this.dni);
         return hash;
     }
 
@@ -73,11 +70,17 @@ public class Alumne implements Comparable<Alumne> {
             return false;
         }
         final Alumne other = (Alumne) obj;
-        if (!this.dni.equals(other.dni) && !this.nom.equals(other.nom)) {
+        if (!Objects.equals(this.dni, other.dni)) {
             return false;
         }
         return true;
     }
+    
+    
+
+
+
+  
         @Override
     public int compareTo(Alumne a) {
         return (this.dni.compareTo(a.dni));
