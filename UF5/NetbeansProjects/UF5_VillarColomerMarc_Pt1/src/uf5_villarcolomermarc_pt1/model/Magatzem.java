@@ -5,6 +5,7 @@
  */
 package uf5_villarcolomermarc_pt1.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.TreeSet;
 import java.util.Set;
@@ -13,7 +14,7 @@ import java.util.Set;
  *
  * @author Marc
  */
-public class Magatzem {
+public class Magatzem implements Serializable{
 
     private HashMap<Integer, Producte> productes;
 
@@ -39,8 +40,8 @@ public class Magatzem {
             System.out.println(p.toString());
         }
     }
-    
-      public void filtrarStock(int stockMinim) {
+
+    public void filtrarStock(int stockMinim) {
         Set<Integer> ks = productes.keySet();
         for (int clau : ks) {
             printStockFiltrat(clau, stockMinim);
@@ -50,15 +51,19 @@ public class Magatzem {
 
     public void printStockFiltrat(int codi, int stockMinim) {
         Producte p = productes.get(codi);
-        if (p.getStock() >= stockMinim ) {
+        if (p.getStock() >= stockMinim) {
             System.out.println(p.toString());
         }
     }
-    public void showProductes(){
-    Set<Integer> ks = productes.keySet();
-    TreeSet<Integer> ksOrdenat = 
-}
+
+    public void showProductesOrdenats() {
+        Set<Integer> ks = productes.keySet();
+        TreeSet<Integer> ksOrdenat = new TreeSet<>();
+        ksOrdenat.addAll(ks);
+        for (int codi : ksOrdenat) {
+           Producte p = productes.get(codi);
+           p.toString();
+        }
+    }
 
 }
-
-

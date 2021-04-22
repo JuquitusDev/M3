@@ -5,11 +5,13 @@
  */
 package uf5_villarcolomermarc_pt1.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Marc
  */
-public class Producte {
+public class Producte implements Serializable{
     protected int codi;
     protected String descripcio;
     protected double preu;
@@ -98,8 +100,9 @@ public class Producte {
 
     @Override
     public String toString() {
-        return "Producte{" + "codi=" + codi + ", descripcio=" + descripcio + ", preu=" + preu + ", ubicacio=" + ubicacio + ", categoria=" + categoria + ", tipus=" + tipus + ", oferta=" + oferta + ", stock=" + stock + '}';
+        return "Producte{" + "codi=" + codi + ", descripcio=" + descripcio + ", preu=" + preu + ", ubicacio=" + ubicacio + ", categoria=" + categoria + ", tipus=" + tipus + ", oferta=" + oferta + ", stock=" + stock + ", importTotal=" + importTotal + '}';
     }
+
 
     @Override
     public int hashCode() {

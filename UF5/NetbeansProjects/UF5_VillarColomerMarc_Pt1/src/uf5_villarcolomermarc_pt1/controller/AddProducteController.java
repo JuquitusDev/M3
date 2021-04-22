@@ -13,13 +13,13 @@ import uf5_villarcolomermarc_pt1.model.Producte;
  */
 public class AddProducteController {
     
-    public static boolean validarProducte(Producte p){
-  
+    public static String validarProducte(Producte p){
+         
+   if()
         
         
         
         
-        
-        return true;  
+        return "true";  
 }
 }

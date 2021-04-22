@@ -5,11 +5,13 @@
  */
 package uf5_villarcolomermarc_pt1.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Marc
  */
-public class Categoria {
+public class Categoria implements Serializable{
    private String nom;
 
     public Categoria(String nom) {
