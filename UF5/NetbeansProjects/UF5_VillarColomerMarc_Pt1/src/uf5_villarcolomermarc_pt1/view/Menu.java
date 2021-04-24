@@ -5,9 +5,8 @@
  */
 package uf5_villarcolomermarc_pt1.view;
 
-import static uf5_villarcolomermarc_pt1.controller.AddProducteController.validarProducte;
-import uf5_villarcolomermarc_pt1.model.Categoria;
-import uf5_villarcolomermarc_pt1.model.Producte;
+import static uf5_villarcolomermarc_pt1.controller.AddProducteController.*;
+import uf5_villarcolomermarc_pt1.model.*;
 
 /**
  *
@@ -20,6 +19,13 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
+        Magatzem m = new Magatzem();
+        Categoria c1 = nww //cat a manija
+        Categoria aCat[] = new Categoria [4];
+        for (int i = 0; i < aCat.length; i++) {
+            
+        }
+        
     }
 
     /**
@@ -57,6 +63,10 @@ public class Menu extends javax.swing.JFrame {
         ubicacio2 = new javax.swing.JLabel();
         ubicacio3 = new javax.swing.JLabel();
         codi1 = new javax.swing.JLabel();
+        codiError = new javax.swing.JLabel();
+        stockError = new javax.swing.JLabel();
+        ubicacioError = new javax.swing.JLabel();
+        preuError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,6 +75,11 @@ public class Menu extends javax.swing.JFrame {
 
         preuLabel.setColumns(20);
         preuLabel.setRows(5);
+        preuLabel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                preuLabelFocusLost(evt);
+            }
+        });
         jScrollPane2.setViewportView(preuLabel);
 
         jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -72,6 +87,11 @@ public class Menu extends javax.swing.JFrame {
 
         stockLabel.setColumns(20);
         stockLabel.setRows(5);
+        stockLabel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                stockLabelFocusLost(evt);
+            }
+        });
         jScrollPane3.setViewportView(stockLabel);
 
         jScrollPane5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -79,6 +99,11 @@ public class Menu extends javax.swing.JFrame {
 
         codiLabel.setColumns(20);
         codiLabel.setRows(5);
+        codiLabel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                codiLabelFocusLost(evt);
+            }
+        });
         jScrollPane5.setViewportView(codiLabel);
 
         jScrollPane6.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -93,6 +118,11 @@ public class Menu extends javax.swing.JFrame {
 
         ubicacioLabel.setColumns(20);
         ubicacioLabel.setRows(5);
+        ubicacioLabel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                ubicacioLabelFocusLost(evt);
+            }
+        });
         jScrollPane7.setViewportView(ubicacioLabel);
 
         codi.setText("Codi");
@@ -103,9 +133,15 @@ public class Menu extends javax.swing.JFrame {
 
         preu.setText("Preu");
 
-        categoriaSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        categoriaSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Categoria1", "Categoria2", "Categoria3", "Categoria4" }));
+        categoriaSelect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                categoriaSelectActionPerformed(evt);
+            }
+        });
 
         Tipus.add(tipusNormal);
+        tipusNormal.setSelected(true);
         tipusNormal.setText("Normal");
         tipusNormal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,6 +167,15 @@ public class Menu extends javax.swing.JFrame {
 
         codi1.setText("Afegir Productes");
 
+        codiError.setForeground(new java.awt.Color(255, 51, 51));
+
+        stockError.setForeground(new java.awt.Color(255, 0, 51));
+
+        ubicacioError.setForeground(new java.awt.Color(255, 0, 51));
+
+        preuError.setForeground(new java.awt.Color(255, 0, 51));
+        preuError.setToolTipText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -141,17 +186,9 @@ public class Menu extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(ubicacio2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(101, 101, 101)
-                        .addComponent(categoriaSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(ubicacio, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(preu, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(81, 81, 81)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(categoriaSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,19 +202,44 @@ public class Menu extends javax.swing.JFrame {
                                 .addComponent(codi1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(36, 36, 36)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ofertaCheck)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(tipusNormal)
-                                .addGap(18, 18, 18)
-                                .addComponent(tipusFragil)
-                                .addGap(27, 27, 27)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(afegir)
-                                    .addComponent(tipusPerible)))
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(254, Short.MAX_VALUE))
+                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ofertaCheck)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(tipusNormal)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(tipusFragil)
+                                        .addGap(27, 27, 27)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(afegir)
+                                            .addComponent(tipusPerible))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(stockError, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(32, 32, 32))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(preuError, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                                    .addComponent(codiError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(35, 35, 35))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(ubicacio, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(preu, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(81, 81, 81)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
+                        .addComponent(ubicacioError, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,25 +249,32 @@ public class Menu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(codi, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)))
+                        .addComponent(codiError, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(codi, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(40, 40, 40))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(32, 32, 32))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(descripcio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(47, 47, 47)
                                 .addComponent(preu, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(82, 82, 82)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(preuError, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ubicacio, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(ubicacio, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(ubicacioError, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -227,8 +296,7 @@ public class Menu extends javax.swing.JFrame {
                                 .addGap(38, 38, 38)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(ofertaCheck)
-                                    .addComponent(ubicacio1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(ubicacio1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(49, 49, 49)
@@ -236,7 +304,9 @@ public class Menu extends javax.swing.JFrame {
                         .addGap(33, 33, 33))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(stockError, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(25, 25, 25)))
                 .addComponent(afegir)
                 .addContainerGap())
@@ -246,7 +316,9 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tipusNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipusNormalActionPerformed
-        String tipus = "";
+        
+if(codiError.getText().equals("") && stockError.getText().equals("") && ubicacioError.getText().equals("") && preuError.getText().equals("")){
+ String tipus = "";
         if (tipusNormal.isSelected()) {
             tipus = "normal";
         } else if (tipusFragil.isSelected()) {
@@ -254,20 +326,56 @@ public class Menu extends javax.swing.JFrame {
         } else if (tipusPerible.isSelected()) {
             tipus = "perible";
         }
-
-// Validar tots els camps, despres afegir 
-  validarProducte(Integer.parseInt(codiLabel.getText()),
-                descripcioLabel.getText(),
-                Double.parseDouble(preuLabel.getText()),
-                ubicacioLabel.getText(),
-                categoriaSelect.getSelectedItem().toString(),
-                tipus,
-                ofertaCheck.isSelected(),
-                stockLabel.getText()
-        );
-      
-
+    Producte p = new Producte(Integer.parseInt(codiLabel.getText()),
+                              descripcioLabel.getText(),
+                              Integer.parseInt(preuLabel.getText()),
+                              ubicacioLabel.getText(),
+                              new Categoria(categoriaSelect.getSelectedItem().toString()),
+                              tipus,
+                              ofertaCheck.isSelected(),
+                              Integer.parseInt(stockLabel.getText())
+                            );
+  submitProducte(p);                                    
+}
     }//GEN-LAST:event_tipusNormalActionPerformed
+
+    private void codiLabelFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codiLabelFocusLost
+        if (!validarCodi(codiLabel.getText()).equals("")) {
+            codiError.setText(validarCodi(codiLabel.getText()));
+        } else {
+            codiError.setText("");
+        }
+    }//GEN-LAST:event_codiLabelFocusLost
+
+    private void preuLabelFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_preuLabelFocusLost
+
+        if (!validarPreu(preuLabel.getText()).equals("")) {
+            preuError.setText(validarPreu(preuLabel.getText()));
+        } else {
+            preuError.setText("");
+        }
+
+    }//GEN-LAST:event_preuLabelFocusLost
+
+    private void ubicacioLabelFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ubicacioLabelFocusLost
+        if (!validarUbicacio(ubicacioLabel.getText()).equals("")) {
+            ubicacioError.setText(validarUbicacio(ubicacioLabel.getText()));
+        } else {
+            ubicacioError.setText("");
+        }
+    }//GEN-LAST:event_ubicacioLabelFocusLost
+
+    private void stockLabelFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_stockLabelFocusLost
+        if (!validarStock(stockLabel.getText()).equals("")) {
+            stockError.setText(validarStock(stockLabel.getText()));
+        } else {
+            stockError.setText("");
+        }
+    }//GEN-LAST:event_stockLabelFocusLost
+
+    private void categoriaSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoriaSelectActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_categoriaSelectActionPerformed
 
     /**
      * @param args the command line arguments
@@ -310,6 +418,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> categoriaSelect;
     private javax.swing.JLabel codi;
     private javax.swing.JLabel codi1;
+    private javax.swing.JLabel codiError;
     private javax.swing.JTextArea codiLabel;
     private javax.swing.JLabel descripcio;
     private javax.swing.JTextArea descripcioLabel;
@@ -320,8 +429,10 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JCheckBox ofertaCheck;
     private javax.swing.JLabel preu;
+    private javax.swing.JLabel preuError;
     private javax.swing.JTextArea preuLabel;
     private javax.swing.JLabel stock;
+    private javax.swing.JLabel stockError;
     private javax.swing.JTextArea stockLabel;
     private javax.swing.JRadioButton tipusFragil;
     private javax.swing.JRadioButton tipusNormal;
@@ -330,6 +441,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel ubicacio1;
     private javax.swing.JLabel ubicacio2;
     private javax.swing.JLabel ubicacio3;
+    private javax.swing.JLabel ubicacioError;
     private javax.swing.JTextArea ubicacioLabel;
     // End of variables declaration//GEN-END:variables
 }
