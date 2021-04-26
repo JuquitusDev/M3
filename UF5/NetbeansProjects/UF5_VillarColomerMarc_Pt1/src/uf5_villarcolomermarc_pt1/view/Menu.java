@@ -5,6 +5,8 @@
  */
 package uf5_villarcolomermarc_pt1.view;
 
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import static uf5_villarcolomermarc_pt1.controller.AddProducteController.*;
 import uf5_villarcolomermarc_pt1.model.*;
 
@@ -17,13 +19,17 @@ public class Menu extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
+
+
     public Menu() {
+        boolean isMagatzem = cargarMagatzem(getNomFitxer()); 
+        if(isMagatzem){
+        JOptionPane.showConfirmDialog(this, "Vols carregar el magatzem?", "Carregar magatzem", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                }
         initComponents();
-        Magatzem m = new Magatzem();
-        Categoria c1 = nww //cat a manija
-        Categoria aCat[] = new Categoria [4];
-        for (int i = 0; i < aCat.length; i++) {
-            
+        ArrayList<Categoria> acat = listCategories();
+        for (Categoria categoria : acat) {
+        categoriaSelect.addItem(categoria.getNom());
         }
         
     }
@@ -133,7 +139,6 @@ public class Menu extends javax.swing.JFrame {
 
         preu.setText("Preu");
 
-        categoriaSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Categoria1", "Categoria2", "Categoria3", "Categoria4" }));
         categoriaSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 categoriaSelectActionPerformed(evt);
@@ -316,27 +321,30 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tipusNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipusNormalActionPerformed
-        
-if(codiError.getText().equals("") && stockError.getText().equals("") && ubicacioError.getText().equals("") && preuError.getText().equals("")){
- String tipus = "";
-        if (tipusNormal.isSelected()) {
-            tipus = "normal";
-        } else if (tipusFragil.isSelected()) {
-            tipus = "fragil";
-        } else if (tipusPerible.isSelected()) {
-            tipus = "perible";
+
+        if (codiError.getText().equals("") && stockError.getText().equals("") && ubicacioError.getText().equals("") && preuError.getText().equals("")) {
+            String tipus = "";
+            if (tipusNormal.isSelected()) {
+                tipus = "normal";
+            } else if (tipusFragil.isSelected()) {
+                tipus = "fragil";
+            } else if (tipusPerible.isSelected()) {
+                tipus = "perible";
+            }
+
+            Categoria c =  new Categoria(categoriaSelect.getSelectedItem().toString());
+            
+            Producte p = new Producte(Integer.parseInt(codiLabel.getText()),
+                    descripcioLabel.getText(),
+                    Integer.parseInt(preuLabel.getText()),
+                    ubicacioLabel.getText(),
+                    c,
+                    tipus,
+                    ofertaCheck.isSelected(),
+                    Integer.parseInt(stockLabel.getText())
+            );
+            submitProducte(p);
         }
-    Producte p = new Producte(Integer.parseInt(codiLabel.getText()),
-                              descripcioLabel.getText(),
-                              Integer.parseInt(preuLabel.getText()),
-                              ubicacioLabel.getText(),
-                              new Categoria(categoriaSelect.getSelectedItem().toString()),
-                              tipus,
-                              ofertaCheck.isSelected(),
-                              Integer.parseInt(stockLabel.getText())
-                            );
-  submitProducte(p);                                    
-}
     }//GEN-LAST:event_tipusNormalActionPerformed
 
     private void codiLabelFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codiLabelFocusLost
@@ -444,4 +452,5 @@ if(codiError.getText().equals("") && stockError.getText().equals("") && ubicacio
     private javax.swing.JLabel ubicacioError;
     private javax.swing.JTextArea ubicacioLabel;
     // End of variables declaration//GEN-END:variables
+
 }
