@@ -22,17 +22,37 @@ import uf5_villarcolomermarc_pt1.model.Producte;
  */
 public class AddProducteController {
 
-    final static String NOM_FITXER = "productes.bin";
+    final static String NOM_FITXER = "C:\\Users\\Juquitus\\Desktop\\M3\\M3\\UF5\\NetbeansProjects\\UF5_VillarColomerMarc_Pt1\\src\\productes.bin";
 
+    Magatzem m = null;
+
+    public AddProducteController(Magatzem m) {
+    
+    this.m = m;
+    }
+
+    public Magatzem getM() {
+        return m;
+    }
+
+    public void setM(Magatzem m) {
+        this.m = m;
+    }
+    
+    
+    
     public static String getNomFitxer() {
         return NOM_FITXER;
     }
 
+  
+    
+    
+    
     public static boolean cargarMagatzem(String nom) {
-        Magatzem m = new Magatzem();
-            if (getLectura(nom) != null) {
-                return true;
-            }
+        if (getLectura(nom) != null) {
+            return true;
+        }
         return false;
     }
 
@@ -119,7 +139,22 @@ public class AddProducteController {
     }
 
     public static String submitProducte(Producte p) {
-
-        return "null";
+       Magatzem m = new Magatzem();
+        try {
+            m.afegir(p);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
+        m = actualitzarMagatzem(m);
+        System.out.println(m.toString());
+        return "";
     }
+    
+    
+    public static Magatzem actualitzarMagatzem(Magatzem m) {
+      
+    }
+    
+    
 }

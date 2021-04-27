@@ -20,7 +20,6 @@ public class Producte implements Serializable{
     protected String tipus;
     protected boolean oferta;
     protected int stock;
-    protected final double importTotal = stock * preu;
 
         public Producte(int codi, String descripcio, double preu, String ubicacio, Categoria categoria, String tipus, boolean oferta, int stock) {
         this.codi = codi;
@@ -100,7 +99,7 @@ public class Producte implements Serializable{
 
     @Override
     public String toString() {
-        return "Producte{" + "codi=" + codi + ", descripcio=" + descripcio + ", preu=" + preu + ", ubicacio=" + ubicacio + ", categoria=" + categoria + ", tipus=" + tipus + ", oferta=" + oferta + ", stock=" + stock + ", importTotal=" + importTotal + '}';
+        return "Producte{" + "codi=" + codi + ", descripcio=" + descripcio + ", preu=" + preu + ", ubicacio=" + ubicacio + ", categoria=" + categoria + ", tipus=" + tipus + ", oferta=" + oferta + ", stock=" + stock + ", importTotal=" + this.stock * this.preu + '}';
     }
 
 

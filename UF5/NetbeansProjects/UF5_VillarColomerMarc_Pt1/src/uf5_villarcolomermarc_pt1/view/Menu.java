@@ -19,19 +19,26 @@ public class Menu extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
-
+    Magatzem m = null;
 
     public Menu() {
-        boolean isMagatzem = cargarMagatzem(getNomFitxer()); 
-        if(isMagatzem){
-        JOptionPane.showConfirmDialog(this, "Vols carregar el magatzem?", "Carregar magatzem", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                }
+        int res = 0;
+        /*
+        boolean isMagatzem = cargarMagatzem(getNomFitxer());
+        if (isMagatzem) {
+            res = JOptionPane.showConfirmDialog(this, "Vols carregar el magatzem?", "Carregar magatzem", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        }
+        if (res == JOptionPane.YES_OPTION) {
+            m = getLectura(getNomFitxer());
+        } else {
+            m = new Magatzem();
+        }*/
         initComponents();
         ArrayList<Categoria> acat = listCategories();
         for (Categoria categoria : acat) {
-        categoriaSelect.addItem(categoria.getNom());
+            categoriaSelect.addItem(categoria.getNom());
         }
-        
+
     }
 
     /**
@@ -163,6 +170,11 @@ public class Menu extends javax.swing.JFrame {
         stock.setText("Stock");
 
         afegir.setText("Afegir");
+        afegir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                afegirActionPerformed(evt);
+            }
+        });
 
         ubicacio1.setText("Oferta");
 
@@ -322,29 +334,6 @@ public class Menu extends javax.swing.JFrame {
 
     private void tipusNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipusNormalActionPerformed
 
-        if (codiError.getText().equals("") && stockError.getText().equals("") && ubicacioError.getText().equals("") && preuError.getText().equals("")) {
-            String tipus = "";
-            if (tipusNormal.isSelected()) {
-                tipus = "normal";
-            } else if (tipusFragil.isSelected()) {
-                tipus = "fragil";
-            } else if (tipusPerible.isSelected()) {
-                tipus = "perible";
-            }
-
-            Categoria c =  new Categoria(categoriaSelect.getSelectedItem().toString());
-            
-            Producte p = new Producte(Integer.parseInt(codiLabel.getText()),
-                    descripcioLabel.getText(),
-                    Integer.parseInt(preuLabel.getText()),
-                    ubicacioLabel.getText(),
-                    c,
-                    tipus,
-                    ofertaCheck.isSelected(),
-                    Integer.parseInt(stockLabel.getText())
-            );
-            submitProducte(p);
-        }
     }//GEN-LAST:event_tipusNormalActionPerformed
 
     private void codiLabelFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codiLabelFocusLost
@@ -384,6 +373,32 @@ public class Menu extends javax.swing.JFrame {
     private void categoriaSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoriaSelectActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_categoriaSelectActionPerformed
+
+    private void afegirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_afegirActionPerformed
+        if (codiError.getText().equals("") && stockError.getText().equals("") && ubicacioError.getText().equals("") && preuError.getText().equals("")) {
+            String tipus = "";
+            if (tipusNormal.isSelected()) {
+                tipus = "normal";
+            } else if (tipusFragil.isSelected()) {
+                tipus = "fragil";
+            } else if (tipusPerible.isSelected()) {
+                tipus = "perible";
+            }
+
+            Categoria c = new Categoria(categoriaSelect.getSelectedItem().toString());
+
+            Producte p = new Producte(Integer.parseInt(codiLabel.getText()),
+                    descripcioLabel.getText(),
+                    Integer.parseInt(preuLabel.getText()),
+                    ubicacioLabel.getText(),
+                    c,
+                    tipus,
+                    ofertaCheck.isSelected(),
+                    Integer.parseInt(stockLabel.getText())
+            );
+            submitProducte(p);
+        }
+    }//GEN-LAST:event_afegirActionPerformed
 
     /**
      * @param args the command line arguments

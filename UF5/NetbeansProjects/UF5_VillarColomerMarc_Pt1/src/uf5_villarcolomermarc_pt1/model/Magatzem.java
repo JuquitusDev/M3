@@ -66,4 +66,9 @@ public class Magatzem implements Serializable{
         }
     }
 
+    @Override
+    public String toString() {
+        return "Magatzem{" + "productes=" + productes + '}';
+    }
+
 }
