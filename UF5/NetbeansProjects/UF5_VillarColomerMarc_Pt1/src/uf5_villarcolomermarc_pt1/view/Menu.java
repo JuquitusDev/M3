@@ -7,7 +7,7 @@ package uf5_villarcolomermarc_pt1.view;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import static uf5_villarcolomermarc_pt1.controller.AddProducteController.*;
+import uf5_villarcolomermarc_pt1.controller.AddProducteController;
 import uf5_villarcolomermarc_pt1.model.*;
 
 /**
@@ -19,11 +19,11 @@ public class Menu extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
-    Magatzem m = null;
+   private AddProducteController ctl;
 
-    public Menu() {
-        int res = 0;
-        /*
+    public Menu(AddProducteController ctl) {
+        this.ctl = ctl;
+          /*
         boolean isMagatzem = cargarMagatzem(getNomFitxer());
         if (isMagatzem) {
             res = JOptionPane.showConfirmDialog(this, "Vols carregar el magatzem?", "Carregar magatzem", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -34,11 +34,11 @@ public class Menu extends javax.swing.JFrame {
             m = new Magatzem();
         }*/
         initComponents();
-        ArrayList<Categoria> acat = listCategories();
+  
+      ArrayList<Categoria> acat = ctl.listCategories();
         for (Categoria categoria : acat) {
             categoriaSelect.addItem(categoria.getNom());
         }
-
     }
 
     /**
@@ -337,8 +337,8 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_tipusNormalActionPerformed
 
     private void codiLabelFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codiLabelFocusLost
-        if (!validarCodi(codiLabel.getText()).equals("")) {
-            codiError.setText(validarCodi(codiLabel.getText()));
+        if (!ctl.validarCodi(codiLabel.getText()).equals("")) {
+            codiError.setText(ctl.validarCodi(codiLabel.getText()));
         } else {
             codiError.setText("");
         }
@@ -346,8 +346,8 @@ public class Menu extends javax.swing.JFrame {
 
     private void preuLabelFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_preuLabelFocusLost
 
-        if (!validarPreu(preuLabel.getText()).equals("")) {
-            preuError.setText(validarPreu(preuLabel.getText()));
+        if (!ctl.validarPreu(preuLabel.getText()).equals("")) {
+            preuError.setText(ctl.validarPreu(preuLabel.getText()));
         } else {
             preuError.setText("");
         }
@@ -355,16 +355,16 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_preuLabelFocusLost
 
     private void ubicacioLabelFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ubicacioLabelFocusLost
-        if (!validarUbicacio(ubicacioLabel.getText()).equals("")) {
-            ubicacioError.setText(validarUbicacio(ubicacioLabel.getText()));
+        if (!ctl.validarUbicacio(ubicacioLabel.getText()).equals("")) {
+            ubicacioError.setText(ctl.validarUbicacio(ubicacioLabel.getText()));
         } else {
             ubicacioError.setText("");
         }
     }//GEN-LAST:event_ubicacioLabelFocusLost
 
     private void stockLabelFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_stockLabelFocusLost
-        if (!validarStock(stockLabel.getText()).equals("")) {
-            stockError.setText(validarStock(stockLabel.getText()));
+        if (!ctl.validarStock(stockLabel.getText()).equals("")) {
+            stockError.setText(ctl.validarStock(stockLabel.getText()));
         } else {
             stockError.setText("");
         }
@@ -396,8 +396,18 @@ public class Menu extends javax.swing.JFrame {
                     ofertaCheck.isSelected(),
                     Integer.parseInt(stockLabel.getText())
             );
-            submitProducte(p);
+            ctl.submitProducte(p);
         }
+        codiLabel.setText("");
+        descripcioLabel.setText("");
+        preuLabel.setText("");
+        ubicacioLabel.setText("");
+        categoriaSelect.setSelectedIndex(0);
+        tipusNormal.setSelected(true);
+        ofertaCheck.setSelected(false);
+        stockLabel.setText("");
+        
+        
     }//GEN-LAST:event_afegirActionPerformed
 
     /**
@@ -430,7 +440,7 @@ public class Menu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu().setVisible(true);
+                new Menu( new AddProducteController()).setVisible(false);
             }
         });
     }

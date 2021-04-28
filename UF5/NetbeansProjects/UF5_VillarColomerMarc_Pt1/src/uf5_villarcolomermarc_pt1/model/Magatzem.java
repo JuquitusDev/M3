@@ -22,6 +22,15 @@ public class Magatzem implements Serializable{
         this.productes = new HashMap<>();
     }
 
+    public HashMap<Integer, Producte> getProductes() {
+        return productes;
+    }
+
+    public void setProductes(HashMap<Integer, Producte> productes) {
+        this.productes = productes;
+    }
+
+    
     public void afegir(Producte p) {
         productes.put(p.getCodi(), p);
     }

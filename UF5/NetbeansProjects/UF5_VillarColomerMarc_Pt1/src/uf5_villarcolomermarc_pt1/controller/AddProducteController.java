@@ -12,9 +12,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Set;
 import uf5_villarcolomermarc_pt1.model.Categoria;
 import uf5_villarcolomermarc_pt1.model.Magatzem;
 import uf5_villarcolomermarc_pt1.model.Producte;
+import uf5_villarcolomermarc_pt1.view.Menu;
 
 /**
  *
@@ -22,34 +24,21 @@ import uf5_villarcolomermarc_pt1.model.Producte;
  */
 public class AddProducteController {
 
+    private Magatzem m;
+    private Menu menu;
     final static String NOM_FITXER = "C:\\Users\\Juquitus\\Desktop\\M3\\M3\\UF5\\NetbeansProjects\\UF5_VillarColomerMarc_Pt1\\src\\productes.bin";
 
-    Magatzem m = null;
-
-    public AddProducteController(Magatzem m) {
-    
-    this.m = m;
+    public AddProducteController() {
+        this.m = new Magatzem();
+        this.menu = new Menu(this);
+        this.menu.setVisible(true);
     }
 
-    public Magatzem getM() {
-        return m;
-    }
-
-    public void setM(Magatzem m) {
-        this.m = m;
-    }
-    
-    
-    
-    public static String getNomFitxer() {
+    public String getNomFitxer() {
         return NOM_FITXER;
     }
 
-  
-    
-    
-    
-    public static boolean cargarMagatzem(String nom) {
+    public boolean cargarMagatzem(String nom) {
         if (getLectura(nom) != null) {
             return true;
         }
@@ -69,7 +58,7 @@ public class AddProducteController {
         }
 
     }*/
-    public static Magatzem getLectura(String nFitxer) {
+    public Magatzem getLectura(String nFitxer) {
         Magatzem m = null;
         ObjectInputStream ois = null;
         try {
@@ -90,7 +79,7 @@ public class AddProducteController {
         return m;
     }
 
-    public static ArrayList<Categoria> listCategories() {
+    public ArrayList<Categoria> listCategories() {
         Categoria c1 = new Categoria("categoria1");
         Categoria c2 = new Categoria("categoria2");
         Categoria c3 = new Categoria("categoria3");
@@ -103,17 +92,29 @@ public class AddProducteController {
         return aCat;
     }
 
-    public static String validarCodi(String codi) {
+    public String validarCodi(String codi) {
+        int intcodi = 0;
         try {
-            Integer.parseInt(codi);
+            intcodi = Integer.parseInt(codi);
         } catch (Exception e) {
             return "El codi introduit no és numèric";
         }
-        return "";
+
+        try {
+           Producte p =  m.getProductes().get(intcodi);
+           if(p != null){
+            return "El codi actual està duplicat";
+           }else{
+               return "";
+           }
+        } catch (Exception e) {
+            return "error";
+        }
+
     }
 
 //  String preu, String ubi, String categoria, String tipus, boolean oferta, String stock
-    public static String validarPreu(String preu) {
+    public String validarPreu(String preu) {
         try {
             Double.parseDouble(preu);
         } catch (Exception e) {
@@ -122,7 +123,7 @@ public class AddProducteController {
         return "";
     }
 
-    public static String validarStock(String stock) {
+    public String validarStock(String stock) {
         try {
             Integer.parseInt(stock);
         } catch (Exception e) {
@@ -131,30 +132,25 @@ public class AddProducteController {
         return "";
     }
 
-    public static String validarUbicacio(String ubi) {
+    public String validarUbicacio(String ubi) {
         if (ubi.length() != 3) {
             return "la longitud ha de ser de 3 caràcters";
         }
         return "";
     }
 
-    public static String submitProducte(Producte p) {
-       Magatzem m = new Magatzem();
+    public String submitProducte(Producte p) {
         try {
             m.afegir(p);
         } catch (Exception e) {
             e.printStackTrace();
             return "error";
         }
-        m = actualitzarMagatzem(m);
-        System.out.println(m.toString());
+        Set<Integer> ks = m.getProductes().keySet();
+        for (int clau : ks) {
+            System.out.println(m.getProductes().get(clau));
+        }
         return "";
     }
-    
-    
-    public static Magatzem actualitzarMagatzem(Magatzem m) {
-      
-    }
-    
-    
+
 }
