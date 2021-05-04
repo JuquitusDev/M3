@@ -11,7 +11,8 @@ import java.io.Serializable;
  *
  * @author Marc
  */
-public class Producte implements Serializable{
+public class Producte implements Serializable {
+
     protected int codi;
     protected String descripcio;
     protected double preu;
@@ -21,7 +22,7 @@ public class Producte implements Serializable{
     protected boolean oferta;
     protected int stock;
 
-        public Producte(int codi, String descripcio, double preu, String ubicacio, Categoria categoria, String tipus, boolean oferta, int stock) {
+    public Producte(int codi, String descripcio, double preu, String ubicacio, Categoria categoria, String tipus, boolean oferta, int stock) {
         this.codi = codi;
         this.descripcio = descripcio;
         this.preu = preu;
@@ -32,7 +33,6 @@ public class Producte implements Serializable{
         this.stock = stock;
     }
 
-        
     public int getCodi() {
         return codi;
     }
@@ -43,6 +43,10 @@ public class Producte implements Serializable{
 
     public String getDescripcio() {
         return descripcio;
+    }
+
+    public double getImport() {
+        return this.preu * this.stock;
     }
 
     public void setDescripcio(String descripcio) {
@@ -102,7 +106,6 @@ public class Producte implements Serializable{
         return "Producte{" + "codi=" + codi + ", descripcio=" + descripcio + ", preu=" + preu + ", ubicacio=" + ubicacio + ", categoria=" + categoria + ", tipus=" + tipus + ", oferta=" + oferta + ", stock=" + stock + ", importTotal=" + this.stock * this.preu + '}';
     }
 
-
     @Override
     public int hashCode() {
         int hash = 5;
@@ -126,14 +129,7 @@ public class Producte implements Serializable{
             return false;
         }
         return true;
-        
-        
+
     }
-
-
-
-
-
-
 
 }

@@ -12,10 +12,14 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import uf5_villarcolomermarc_pt1.model.Categoria;
 import uf5_villarcolomermarc_pt1.model.Magatzem;
 import uf5_villarcolomermarc_pt1.model.Producte;
+import uf5_villarcolomermarc_pt1.view.LlistaProductes;
 import uf5_villarcolomermarc_pt1.view.Menu;
 
 /**
@@ -101,12 +105,12 @@ public class AddProducteController {
         }
 
         try {
-           Producte p =  m.getProductes().get(intcodi);
-           if(p != null){
-            return "El codi actual està duplicat";
-           }else{
-               return "";
-           }
+            Producte p = m.getProductes().get(intcodi);
+            if (p != null) {
+                return "El codi actual està duplicat";
+            } else {
+                return "";
+            }
         } catch (Exception e) {
             return "error";
         }
@@ -147,10 +151,89 @@ public class AddProducteController {
             return "error";
         }
         Set<Integer> ks = m.getProductes().keySet();
+        System.out.println("MAGATZEM:");
         for (int clau : ks) {
             System.out.println(m.getProductes().get(clau));
         }
+        System.out.println();
         return "";
     }
 
+    private TableModel getProductesDataTable() {
+        DefaultTableModel tm = new DefaultTableModel();
+        tm.addColumn("Codi");
+        tm.addColumn("Categoria");
+        tm.addColumn("Stock");
+        tm.addColumn("Preu");
+        tm.addColumn("Import Total");
+        Set<Integer> ks = m.getProductes().keySet();
+        for (int clau : ks) {
+
+            Object[] fila = new Object[5];
+            fila[0] = m.getProductes().get(clau).getCodi();
+            fila[1] = m.getProductes().get(clau).getCategoria().getNom();
+            fila[2] = m.getProductes().get(clau).getStock();
+            fila[3] = m.getProductes().get(clau).getPreu();
+            fila[4] = m.getProductes().get(clau).getImport();
+            tm.addRow(fila);
+        }
+        return tm;
+    }
+
+    public void mostraLlista() {
+        LlistaProductes dialog = new LlistaProductes(this.menu, true, this);
+        dialog.setDefaultCloseOperation((LlistaProductes.DISPOSE_ON_CLOSE));
+        TableModel tm = this.getProductesDataTable();
+        dialog.setInfo(tm);
+        dialog.setVisible(true);
+
+    }
+
+    public TableModel filtrarCategoria(String nomCategoria) {
+        DefaultTableModel tm = new DefaultTableModel();
+        tm.addColumn("Codi");
+        tm.addColumn("Categoria");
+        tm.addColumn("Stock");
+        tm.addColumn("Preu");
+        tm.addColumn("Import Total");
+        Set<Integer> ks = m.getProductes().keySet();
+        for (int clau : ks) {
+            Producte p = m.getProductes().get(clau);
+            if (p.getCategoria().getNom().equals(nomCategoria)) {
+                Object[] fila = new Object[5];
+                fila[0] = m.getProductes().get(clau).getCodi();
+                fila[1] = m.getProductes().get(clau).getCategoria().getNom();
+                fila[2] = m.getProductes().get(clau).getStock();
+                fila[3] = m.getProductes().get(clau).getPreu();
+                fila[4] = m.getProductes().get(clau).getImport();
+                tm.addRow(fila);
+            }
+
+        }
+        return tm;
+    }
+
+    public TableModel filtrarStock(int stockMinim) {
+        DefaultTableModel tm = new DefaultTableModel();
+        tm.addColumn("Codi");
+        tm.addColumn("Categoria");
+        tm.addColumn("Stock");
+        tm.addColumn("Preu");
+        tm.addColumn("Import Total");
+        Set<Integer> ks = m.getProductes().keySet();
+        for (int clau : ks) {
+            Producte p = m.getProductes().get(clau);
+            if (p.getStock() >= stockMinim) {
+                Object[] fila = new Object[5];
+                fila[0] = m.getProductes().get(clau).getCodi();
+                fila[1] = m.getProductes().get(clau).getCategoria().getNom();
+                fila[2] = m.getProductes().get(clau).getStock();
+                fila[3] = m.getProductes().get(clau).getPreu();
+                fila[4] = m.getProductes().get(clau).getImport();
+                tm.addRow(fila);
+            }
+
+        }
+        return tm;
+    }
 }
