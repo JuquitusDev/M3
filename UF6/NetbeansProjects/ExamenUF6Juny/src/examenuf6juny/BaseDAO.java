@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public class BaseDAO {
 
     static final String url = "jdbc:mysql://localhost:3306/";
-    static final String dbName = "pt1UF6";                  //Nom de la nostra BBDD
+    static final String dbName = "exUF6";                  //Nom de la nostra BBDD
     static final String driver = "com.mysql.cj.jdbc.Driver";
     static final String userName = "root";
     static final String password = "";
@@ -28,7 +28,7 @@ public class BaseDAO {
             try {
                 Class.forName(driver);
                 conn = DriverManager.getConnection(url + dbName, userName, password);
-                UtilBD.createEstructuraMysql();
+                //UtilBD.createEstructuraMysql();
             } catch (SQLException | ClassNotFoundException ex) {
                 throw new ExceptionInInitializerError(ex);
             }
